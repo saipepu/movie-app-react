@@ -1,0 +1,6 @@
+export const actionTypes = {
+    ALLMOVIE: 'ALLMOVIE',
+    SELECTEDMOVIE: 'SELECTEDMOVIE',
+    ADDFAV: 'ADDFAV',
+    REMOVEFAV: 'REMOVEFAV'
+}
