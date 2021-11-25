@@ -68,6 +68,7 @@ const MovieLists = () => {
             console.log('hi')
         }
     }
+
     return(
        <>
        <Text fontSize="2em" fontWeight="700" textColor="#fff">Movies</Text>
