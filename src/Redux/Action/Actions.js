@@ -10,7 +10,7 @@ export const fetchAllMovie = (title) => async (dispatch,getState) => {
     else{
         console.log('yes')
     }
-    const response = await axios.get(`http://www.omdbapi.com/?apikey=89e82956&s=${search}`)
+    const response = await axios.get(`https://www.omdbapi.com/?apikey=89e82956&s=${search}`)
 
     if(response.data.Response !== 'False'){
         dispatch({
@@ -26,7 +26,7 @@ export const fetchAllMovie = (title) => async (dispatch,getState) => {
 }
 
 export const fetchSelectedMovie = (id) => async (dispatch) => {
-    const response = await axios.get(`http://www.omdbapi.com/?i=${id}&apikey=89e82956`)
+    const response = await axios.get(`https://www.omdbapi.com/?i=${id}&apikey=89e82956`)
     dispatch({
         type: actionTypes.SELECTEDMOVIE,
         payload: response.data

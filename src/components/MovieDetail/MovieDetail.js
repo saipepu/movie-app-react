@@ -3,23 +3,26 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router'
 import { fetchSelectedMovie } from '../../Redux/Action/Actions';
 import { Flex,Box,Text } from '@chakra-ui/layout';
-import { Container, Divider, Image } from '@chakra-ui/react';
+import { Divider, Image } from '@chakra-ui/react';
 import Header from '../Home/Header';
-import { Link } from '@chakra-ui/layout';
+import { Link } from 'react-router-dom';
 import { Button } from '@chakra-ui/button';
 import { addFav } from '../../Redux/Action/Actions';
+import { useHistory } from 'react-router';
 
 const MovieDetail = () => {
     const [ favList, setFavList] = useState([])
     const params = useParams();
     const dispatch = useDispatch();
-    const selectedMovie = useSelector((state) => state.selectedMovie)
+    const history = useHistory();
+
+    let selectedMovie = useSelector((state) => state.selectedMovie)
 
     let allMovieList = localStorage.getItem('movieList')
     allMovieList= JSON.parse(allMovieList)
-
+    let len = allMovieList.length / 2;
     let relatedMovies = []
-    for(let i=0; i<6; i++){
+    for(let i=0; i<len; i++){
         if( allMovieList[i].imdbID !== params.id)
         relatedMovies[i] = allMovieList[i]
     }
@@ -29,18 +32,16 @@ const MovieDetail = () => {
         console.log(id)
         dispatch(fetchSelectedMovie(id))
     }
-
     useEffect(() => {
         fetchData(params.id)
 
-    },[])
+    },[params.id])
     useEffect(() => {
+
         let data = localStorage.getItem('favList')
         console.log(data)
         data = JSON.parse(data)
-        if( data !== null || data.length!==0){
-
-            console.log(data)
+        if( data){
             data.map(data => {
                 dispatch(addFav(data))
             })
@@ -50,7 +51,6 @@ const MovieDetail = () => {
             data = []
         }
     },[])
-
     const handleClick = (data) => {
         dispatch(addFav(data))
         console.log(data.imdbID)
@@ -60,7 +60,7 @@ const MovieDetail = () => {
     return(
         <Box bgColor='#141414'>
         <Header />
-        {selectedMovie[0] === '' || selectedMovie[0] === undefined ? <h1>Loading</h1> : 
+        {selectedMovie === '' || selectedMovie === undefined ? <h1>Loading</h1> : 
            selectedMovie.map((movie,i) => {
                return(
                    <Flex 
@@ -119,7 +119,7 @@ const MovieDetail = () => {
         {relatedMovies.map((data,index) => {
             return (
                 <Box direction="column">
-                <Link href={`/movieDetail/${data.imdbID}`} key={index} >
+                <Link to={`/movieDetail/${data.imdbID}`} key={index} >
                     <Flex   display="flex"
                             direction="column"
                             w={["200px","200px","400px","400px"]}

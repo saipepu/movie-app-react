@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch,useSelector } from 'react-redux'; 
-import { addFav, fetchSelectedMovie, removeFromFav } from '../../Redux/Action/Actions';
+import { addFav, removeFromFav } from '../../Redux/Action/Actions';
 import { Flex,Box } from '@chakra-ui/layout';
 import { Button } from '@chakra-ui/button';
 import { Image } from '@chakra-ui/image';
 import { Text } from '@chakra-ui/layout';
-import { Link } from '@chakra-ui/layout';
+import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
 import { Divider } from '@chakra-ui/layout';
 
@@ -27,20 +27,19 @@ const MovieLists = () => {
         console.log(id)
         let data = localStorage.getItem('favList')
         data = JSON.parse(data)
-        if( data !== '' || data.length!==0){
+        if( data !== '' ){
             console.log(data)
             setFavList(data)
             console.log(favList)
             console.log('hi')
         }
     }
-    // localStorage.setItem('favList',JSON.stringify(''))
     useEffect(() => {
         let data = localStorage.getItem('favList')
         console.log(data)
         data = JSON.parse(data)
 
-        if( data !== "" && data.length!==0){
+        if( data !== null){
 
             console.log(data)
             data.map(data => {
@@ -82,7 +81,7 @@ const MovieLists = () => {
                     {movieList.map((data,index) => {
                         return (
                             <Box direction="column" key={index}>
-                                <Link href={`/movieDetail/${data.imdbID}`} key={index} >
+                                <Link to={`/movieDetail/${data.imdbID}`} key={index} >
                                     <Flex   display="flex"
                                             direction="column"
                                             w={["200px","200px","400px","400px"]}
@@ -133,7 +132,7 @@ const MovieLists = () => {
         favList.map((data,index) => {
             if( data !== null){
                 return <Box direction="column" key={index}>
-                <Link href={`/movieDetail/${data.imdbID}`} key={index} >
+                <Link to={`/movieDetail/${data.imdbID}`} key={index} >
                     <Flex   display="flex"
                             direction="column"
                             w={["200px","200px","400px","400px"]}

@@ -3,10 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchAllMovie } from '../../Redux/Action/Actions';
 import MovieLists from './fetchMovieLists';
-import { Flex,Box } from '@chakra-ui/layout';
+import { Box } from '@chakra-ui/layout';
 import Header from './Header';
 import { useHistory } from 'react-router';
-import Fav from '../Fav/Fav';
 
 const Home = () => {
     const [ searchTitle, setSearchTitle ] = useState('')
